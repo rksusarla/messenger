@@ -24,9 +24,9 @@ public class MessageService {
 
     @GetMapping(value="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Message getMessage(@PathVariable UUID id) {
-        Message msg = messages.stream().filter(el -> el.getId().equals(id)).findFirst().get();
-        if (msg == null)   throw new MessageNotFoundException("Can't retrieve message. Message with id '"+id+"' not found");
-        return msg;
+        Optional<Message> msg = messages.stream().filter(el -> el.getId().equals(id)).findFirst();
+        if (!msg.isPresent())   throw new MessageNotFoundException("Can't retrieve message. Message with id '"+id+"' not found");
+        return msg.get();
     }
 
 

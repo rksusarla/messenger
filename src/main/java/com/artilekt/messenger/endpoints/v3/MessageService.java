@@ -12,7 +12,7 @@ import java.util.*;
  * Created by volen on 2017-06-29.
  */
 @RestController
-@RequestMapping("/v3/messages/public")
+@RequestMapping("/v3/messages")
 public class MessageService {
     private List<Message> messages = new ArrayList<>();
 

@@ -1,8 +1,13 @@
 package com.artilekt.messenger.endpoints.v1;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import com.artilekt.messenger.services.AuditService;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +19,14 @@ import java.util.Map;
 @RequestMapping("/v1/messages")
 public class TextMessageService {
     private List<String> messages = new ArrayList<>();
+    
+    @Autowired
+    @Qualifier("defaultAuditService")
+    private AuditService auditService;
 
     @RequestMapping(method=RequestMethod.GET)
     public List<String> getMessages() {
+    	auditService.createLogEntry("all messages are retrieved");
         return messages;
     }
 
